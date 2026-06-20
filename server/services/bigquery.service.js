@@ -20,7 +20,7 @@ function init() {
     bigqueryClient = new BigQuery();
     isAvailable = true;
     console.log('✅ BigQuery: Connected');
-  } catch (error) {
+  } catch {
     console.warn('⚠️  BigQuery: Package not installed. Run: npm install @google-cloud/bigquery');
     isAvailable = false;
   }

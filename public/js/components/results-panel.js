@@ -23,16 +23,16 @@ const ResultsPanel = {
           <span></span><span></span><span></span>
         </div>
         <p class="gs-loading-text">Analyzing ${isRepo ? 'repository' : 'media'} carbon footprint...</p>
-        <div class="gs-loading-steps">
-          <div class="gs-loading-step active" id="step-1">
+        <div class="gs-loading-steps" aria-label="Analysis progress steps">
+          <div class="gs-loading-step active" id="step-1" aria-current="step" aria-label="Step 1: In progress">
             <span class="gs-loading-step-icon">1</span>
             <span>${isRepo ? 'Fetching repository manifests...' : 'Computing streaming metrics...'}</span>
           </div>
-          <div class="gs-loading-step" id="step-2">
+          <div class="gs-loading-step" id="step-2" aria-label="Step 2: Pending">
             <span class="gs-loading-step-icon">2</span>
             <span>${isRepo ? 'Running GreenOps analysis...' : 'Analyzing CDN footprint...'}</span>
           </div>
-          <div class="gs-loading-step" id="step-3">
+          <div class="gs-loading-step" id="step-3" aria-label="Step 3: Pending">
             <span class="gs-loading-step-icon">3</span>
             <span>Generating mitigation strategies...</span>
           </div>
@@ -49,7 +49,6 @@ const ResultsPanel = {
     const findings = analysis.allFindings || [];
     const score = summary.overallScore ?? 50;
     const carbonGrams = summary.totalEstimatedCarbonGrams || analysis.localMetrics?.estimatedCarbonGrams || 0;
-    const carbonKg = (carbonGrams / 1000).toFixed(2);
     const severity = summary.severity || 'moderate';
 
     return `
@@ -64,7 +63,7 @@ const ResultsPanel = {
       </div>
 
       <!-- Score Gauge -->
-      <div class="gs-score" id="result-score">
+      <div class="gs-score" id="result-score" role="img" aria-label="Green Score is ${score} out of 100 with severity: ${severity}">
         <div class="gs-score-ring">
           <svg width="180" height="180" viewBox="0 0 180 180">
             <circle class="bg" cx="90" cy="90" r="80" />
@@ -210,9 +209,8 @@ const ResultsPanel = {
         ${Object.entries(footprint.codecComparison).map(([codec, data]) => {
           const maxCarbon = Math.max(...Object.values(footprint.codecComparison).map(d => d.carbonKg));
           const width = maxCarbon > 0 ? (data.carbonKg / maxCarbon * 100) : 0;
-          const isActive = codec === footprint.input?.codec;
           return `
-            <div class="gs-chart-bar-row">
+            <div class="gs-chart-bar-row" role="img" aria-label="Codec ${codec.toUpperCase()}: ${data.carbonKg.toFixed(1)} kg carbon footprint. ${isActive ? '(Active selection)' : ''}">
               <span class="gs-chart-bar-label" style="${isActive ? 'color: var(--accent-primary); font-weight: 700;' : ''}">
                 ${codec.toUpperCase()}${isActive ? ' ACTIVE' : ''}
               </span>
@@ -236,7 +234,7 @@ const ResultsPanel = {
           const width = maxCarbon > 0 ? (data.carbonKg / maxCarbon * 100) : 0;
           const isActive = res === footprint.input?.resolution;
           return `
-            <div class="gs-chart-bar-row">
+            <div class="gs-chart-bar-row" role="img" aria-label="Resolution ${res}: ${data.carbonKg.toFixed(1)} kg carbon footprint. ${isActive ? '(Active selection)' : ''}">
               <span class="gs-chart-bar-label" style="${isActive ? 'color: var(--accent-primary); font-weight: 700;' : ''}">
                 ${res}${isActive ? ' ACTIVE' : ''}
               </span>
@@ -417,12 +415,23 @@ const ResultsPanel = {
     if (current) {
       current.classList.remove('active');
       current.classList.add('done');
+      current.removeAttribute('aria-current');
+      
+      const stepNum = currentId.split('-')[1];
+      current.setAttribute('aria-label', `Step ${stepNum}: Completed`);
+      
       const icon = current.querySelector('.gs-loading-step-icon');
       if (icon) icon.textContent = 'OK';
     }
     if (nextId) {
       const next = document.getElementById(nextId);
-      if (next) next.classList.add('active');
+      if (next) {
+        next.classList.add('active');
+        next.setAttribute('aria-current', 'step');
+        
+        const stepNum = nextId.split('-')[1];
+        next.setAttribute('aria-label', `Step ${stepNum}: In progress`);
+      }
     }
   },
 

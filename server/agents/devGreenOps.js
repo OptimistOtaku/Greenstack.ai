@@ -67,8 +67,6 @@ Guidelines:
  * Run the Developer GreenOps analysis on repository manifests.
  */
 async function analyzeDevInfrastructure(manifests) {
-  const { packageJson, dockerfile, workflows } = manifests;
-
   // ── Build local metrics first ─────────────────────────
   const localMetrics = buildLocalMetrics(manifests);
 

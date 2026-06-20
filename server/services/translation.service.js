@@ -19,7 +19,7 @@ function init() {
     translationClient = new Translate();
     isAvailable = true;
     console.log('✅ Translation: Connected');
-  } catch (error) {
+  } catch {
     console.warn('⚠️  Translation: Package not installed. Run: npm install @google-cloud/translate');
     isAvailable = false;
   }

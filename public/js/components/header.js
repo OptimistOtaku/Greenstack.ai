@@ -38,7 +38,6 @@ const Header = {
     if (!header) return;
 
     // Scroll effect
-    let lastScroll = 0;
     window.addEventListener('scroll', () => {
       const currentScroll = window.scrollY;
       if (currentScroll > 50) {
@@ -46,7 +45,6 @@ const Header = {
       } else {
         header.classList.remove('scrolled');
       }
-      lastScroll = currentScroll;
     });
 
     // Language selector
