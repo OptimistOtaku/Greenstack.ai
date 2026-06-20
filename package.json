@@ -1,0 +1,41 @@
+{
+  "name": "greenstack-ai",
+  "version": "1.0.0",
+  "description": "Serverless GreenOps Platform for Developers & Creators — uncover hidden digital carbon leaks in cloud architectures and content delivery pipelines.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "test": "node --test tests/unit/*.test.js tests/integration/*.test.js",
+    "test:unit": "node --test tests/unit/*.test.js",
+    "test:integration": "node --test tests/integration/*.test.js",
+    "lint": "eslint server/ public/js/ tests/"
+  },
+  "keywords": [
+    "greenops",
+    "carbon-footprint",
+    "sustainability",
+    "devops",
+    "gemini-ai",
+    "google-cloud",
+    "hackathon"
+  ],
+  "author": "GreenStack.ai",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "^0.24.0",
+    "compression": "^1.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.28.0",
+    "nodemon": "^3.1.9"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
