@@ -13,13 +13,16 @@ const Hero = {
           <div class="gs-hero-copy">
             <div class="gs-hero-badge" id="hero-badge">
               <span class="gs-hero-badge-mark" aria-hidden="true"></span>
-              Multi-agent GreenOps analysis
+              Your personal carbon footprint, analyzed
             </div>
             <h1 class="gs-hero-title" id="hero-title">
-              Find stack carbon leaks.
+              Find your carbon leaks.
             </h1>
+            <div class="gs-hero-tagline">
+              Built for individual developers — not engineering orgs
+            </div>
             <p class="gs-hero-subtitle" id="hero-subtitle">
-              Route repositories and streaming metadata through specialist agents, then turn emissions signals into executable fixes.
+              Paste your repo or your video's specs. See exactly how much carbon you're responsible for — and exactly what to fix first.
             </p>
             <div class="gs-hero-actions">
               <a class="gs-btn gs-btn-primary" href="#dev">Analyze Repository</a>
@@ -59,7 +62,7 @@ const Hero = {
               <span class="gs-card-code" aria-hidden="true">01</span>
               <h2 class="gs-hero-card-title">Developer Workspace</h2>
               <p class="gs-hero-card-desc">
-                Audit package manifests, Docker layers, and workflow cache gaps without cloning a repository.
+                See the carbon cost hiding in your Dockerfile and CI workflows — no repo cloning needed.
               </p>
               <span class="gs-hero-card-arrow">Open</span>
             </div>
@@ -69,7 +72,7 @@ const Hero = {
               <span class="gs-card-code" aria-hidden="true">02</span>
               <h2 class="gs-hero-card-title">Creator Workspace</h2>
               <p class="gs-hero-card-desc">
-                Measure streaming video carbon emissions across CDN networks at audience scale.
+                See the carbon cost of the videos you publish — before you hit upload.
               </p>
               <span class="gs-hero-card-arrow">Open</span>
             </div>
