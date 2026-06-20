@@ -19,6 +19,21 @@ router.post('/media', async (req, res) => {
       });
     }
 
+    // Validate videoUrl if provided
+    if (videoUrl !== undefined && videoUrl !== null && videoUrl !== '') {
+      if (typeof videoUrl !== 'string') {
+        return res.status(400).json({ error: 'videoUrl must be a string' });
+      }
+      try {
+        new URL(videoUrl);
+      } catch {
+        return res.status(400).json({ error: 'videoUrl must be a valid URL (e.g., https://example.com)' });
+      }
+      if (videoUrl.length > 2000) {
+        return res.status(400).json({ error: 'videoUrl must be less than 2000 characters' });
+      }
+    }
+
     // Validate numeric types
     const parsedDuration = Number(durationMinutes);
     const parsedAudience = Number(audienceScale);
